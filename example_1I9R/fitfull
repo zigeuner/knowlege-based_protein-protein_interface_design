@@ -1,0 +1,63 @@
+#!/bin/csh
+
+# a simple script for orienting full-detail structure from relative
+# orientations specified by docked rigid-body structures
+
+if ($1 == "") then
+  echo "ERROR: '"$1"' does not exist, must specify pdb file"
+  echo " usage: fitfull [reference pdb filename] [fitted pdb filename]"
+  exit(-1)
+endif
+
+if ($2 == "") then
+  echo "ERROR: '"$2"' does not exist, must specify pdb file"
+  echo " usage: fitfull [reference pdb filename] [fitted pdb filename]"
+  exit(-1)
+endif
+
+set filename = "profit_antibody_script"
+if (! -e $filename) then
+  echo "ERROR: '"$filename"' does not exist, it is needed"
+  exit(-1)
+endif
+
+set filename = "profit_antigen_script"
+if (! -e $filename) then
+  echo "ERROR: '"$filename"' does not exist, it is needed"
+  exit(-1)
+endif
+
+# extract and fit the antibody portion
+echo "extracting antibody portion..."
+ppdb -k L,H -T antibody $2 >& temp
+echo "fitting antibody portion..."
+profit $1 antibody.pdb < profit_antibody_script >& profit1.out
+rm -f runok
+grep 'RMS: 0.000' profit1.out > runok
+if (-z runok) then
+  echo "ERROR: antibody fitting unsuccessful, please check"
+  exit(-1)
+endif
+
+# extract and fit the antigen portion
+echo "extracting antigen portion..."
+ppdb -k A -T antigen $2 >& temp
+echo "fitting antigen portion..."
+profit $1 antigen.pdb < profit_antigen_script >& profit2.out
+rm -f runok
+grep 'RMS: 0.000' profit2.out > runok
+if (-z runok) then
+  echo "ERROR: antigen fitting unsuccessful, please check"
+  exit(-1)
+endif
+
+grep -v 'END' fittedAB.pdb > fitted.pdb
+echo "final fitted structure is in 'fitted.pdb'"
+cat fittedAG.pdb >> fitted.pdb
+
+ppdb -T full -k A -I Q $2 >& temp
+echo "putting overlayed structures into 'overlay.pdb'"
+cat fitted.pdb full.pdb > overlay.pdb
+
+rm -f temp profit*.out runok antibody.pdb antigen.pdb full.pdb
+rm -f fittedAB.pdb fittedAG.pdb

@@ -1,0 +1,42 @@
+#A script for displaying ligand and proteins
+
+set background white
+color boundbox black
+
+#set boundbox on
+#set axis on
+
+#size the water atoms
+select DOD or HOH
+cpk 30
+select ((DOD or HOH) and *.o)
+cpk 60
+
+restrict not backbone
+select backbone
+color structure
+cartoons
+set cartoons 150
+
+select sidechain
+color cpk
+
+select backbone
+color chain
+
+select sidechain or *.ca
+wireframe 50
+
+select cys
+color yellow
+ssbonds on
+set ssbonds sidechain
+color ssbonds black
+ssbonds 100
+wireframe 150
+
+select hetero and (not (HOH or DOD))
+cpk 0
+color cpk
+wireframe 120
+

@@ -1,0 +1,33 @@
+This is an simple example of a docking/redesign run using a bare
+minimum of input flags.
+
+type 'orient' for description of command line options
+
+orient -b L,H -g A -D gofr_files/ -r interfacedefn 1I9R_prepped.pdb >& out &
+
+---- files created:
+distmtx_final -- residue-residue distance matrix
+final.pdb -- last structure generated
+final.xyz -- last structure generated
+landscape.txt -- docking landscape data for plotting
+minnrg_bin*.pdb -- lowest energy structure at each separation distance bin
+minnrg.xyz -- minimum energy structure found
+movie.xyz -- an xyz movie (of what?)
+poses.txt -- (I forgot what this is)
+resresmtx_final -- final residue-residue interaction energies
+resresmtx_initial -- initial residue-residue interaction energies
+runstats.txt -- run statistics
+starting.pdb -- reduced representation of starting pdb structure
+
+---- how to use the output
+
+Look in 'landscape.txt', consider plotting it (gnuplot plotme.g).
+Find the lowest energy bin (4th column), look at header of
+minnrg_bin[bin#].pdb to confirm that it has the same energy.  In this
+case, bins 14 and 15 have identical low energies of -18.05 kcal/mol.
+That is your "best solution".  If you wanted to turn it into a design
+for synthesis, first regenerate the full complex by fitting the full
+antigen portion to this the antigen in this pdb file.  Once you have
+the full complex, pass it through a repacking program like Rosetta
+Design to get residue identities for the interface residues.
+

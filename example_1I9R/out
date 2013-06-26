@@ -1,0 +1,31 @@
+Number of runs: 1
+Normal MC run at temperature: 300K
+   maximum allowed RMSD from initial structure: 50 Angstroms
+   bin size for landscape accumulation: 0.2 Angstroms
+Antibody is composed of chains: 'L,H'
+Antigen is composed of chains: 'A'
+reading system configuration from file: 1I9R_prepped.pdb
+Setting system temperature to: 300.00
+Initializing forcefield of type 'KB' ... 
+WARNING: substituting SER for CYS CA-CA potentials!
+WARNING: pair interaction 'MD' with atom types 'CA' and 'CA' has 5 values over 4.00
+WARNING: substituting SER for CYS CB-CB potentials!
+WARNING: pair interaction 'AA' with atom types 'CB' and 'CB' has 4 values over 4.00
+WARNING: pair interaction 'MD' with atom types 'CB' and 'CB' has 4 values over 4.00
+Initializing move types... 
+ initializing 2 move type(s) on chain(s): 'A'
+ initializing ROTATE type
+ initializing TRANSLATE type
+Adding no additional repulsive centroids to system
+Added 387 repulsive centers to system at CA atomic centers not on interface
+Creating profit script for antibody chains (L,H):
+Creating profit script for antigen chain(s) (A):
+Repulsive potential= 0.00
+Writing matrix to filename 'resresmtx_initial'
+Writing matrix to filename 'distmtx_initial'
+---- Run 0
+Beginning Equilibrium Monte Carlo moves, simulation length = 1000
+Repulsive potential= 0.00
+Writing matrix to filename 'resresmtx_final'
+Writing matrix to filename 'distmtx_final'
+Done
