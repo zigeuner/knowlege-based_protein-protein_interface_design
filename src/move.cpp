@@ -84,7 +84,8 @@ void CMove::Move(CSystem& sys, CForcefield& ff, const double T,
   bool       accept, overflow;
   int        moveno,a,c,chainno;
   double     initpot, finalpot, dpot, exponent, boltz;
-  CVector3   coord[nmobile][sys.MaxNAtoms()];
+  CVector3   coord[nmobile][sys.MaxNAtoms()];   // got to fix this (March 2014)
+  //  CVector3   coord[1000][10000];
   CVector3** chaincoord = 0;
 
   /* copy relevant chain coordinates as backup */

@@ -1275,7 +1275,10 @@ string CSystem::ResSymbol(const string chainid, const string resno) {
 /*------------------------------------------------------------------------*/
 CVector3 CSystem::CalcCOM() {
   double     chainmass[nchains];
-  CVector3   vec(0.0), chaincom[nchains];
+  CVector3   vec(0.0);
+  //  CVector3   chaincom[nchains];
+  CVector3*  chaincom;
+  chaincom = new CVector3 [nchains];
 
   mass = 0.0;
   for(int i=0; i<nchains; i++) {    
@@ -1291,6 +1294,7 @@ CVector3 CSystem::CalcCOM() {
     exit(-1);
   }
   com = vec/mass;
+  delete [] chaincom;
   return(com);
 }
 
@@ -1552,9 +1556,10 @@ void CSystem::WriteProfitScripts(const string abdefn, const string agdefn) {
 /* Requires:  subset -- system subset */
 /*------------------------------------------------------------------------*/
 CSubset CSystem::GenSubset() {
-  int       r, c, nres, nlines = 0, maxlines = 10000;
-  string    line[maxlines], chainid;
-  CSubset   subset;
+  int        r, c, nres, nlines = 0;
+  const int  maxlines = 10000;
+  string     line[maxlines], chainid;
+  CSubset    subset;
 
   for(c=0; c<nchains; c++) {  
     chainid = chain[c].ChainID();
@@ -1579,7 +1584,8 @@ CSubset CSystem::GenSubset() {
 /*            chains -- comma-separated chain identifiers */
 /*------------------------------------------------------------------------*/
 CSubset CSystem::GenSubset(const string chains) {
-  int       r, c, k, nres, nlines = 0, maxlines = 10000, nkeep;
+  int       r, c, k, nres, nlines = 0, nkeep;
+  const int maxlines = 10000;
   bool      keepit;
   string    line[maxlines], chainid, chainlist[100];
   CSubset   subset;

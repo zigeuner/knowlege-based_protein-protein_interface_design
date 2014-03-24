@@ -169,6 +169,7 @@ void CChain::CopyReduce(const CChain& old, string* atomtypes, int ntypes) {
 
   /* Copy only some atoms of each residue */
   natoms = 0;
+  nnew = 0;
   for(i=0; i<nres; i++) {    
     nnew += res[i].CopyAtoms(old.res[i],atomtypes,ntypes);
     if (nnew == 0) {
@@ -349,7 +350,10 @@ void CChain::CopyCentroids(CChain& old, CSubset& subset) {
 /*------------------------------------------------------------------------*/
 CVector3 CChain::CalcCOM() {
   double     resmass[nres];
-  CVector3   vec(0.0), rescom[nres];
+  CVector3   vec(0.0);
+  //  CVector3   rescom[nres];
+  CVector3* rescom;
+  rescom = new CVector3 [nres];
 
   mass = 0.0;
   com = 0.0;
@@ -369,6 +373,8 @@ CVector3 CChain::CalcCOM() {
   } else {
     com = vec/mass;
   }
+
+  delete [] rescom;
 
   return(com);
 }

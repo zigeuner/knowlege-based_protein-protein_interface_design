@@ -44,8 +44,9 @@ CSubset::CSubset(string* residues, const int nlines, bool verbose) {
 /*            verbose -- flag indicating output to be written to screen */
 /*--------------------------------------------------------------------*/
 void CSubset::Init(const string residuesfile, bool verbose) {
-  int      nlines, maxlines = 10000;
-  string   line[maxlines];
+  int        nlines;
+  const int  maxlines = 10000;
+  string     line[maxlines];
 
   if (verbose) {
     cout << " reading interacting residue definitions from file '" << 
@@ -70,9 +71,10 @@ void CSubset::Init(const string residuesfile, bool verbose) {
 /*            verbose -- flag indicating output to be written to screen */
 /*--------------------------------------------------------------------*/
 void CSubset::Init(const string residuesfile, string chains, bool verbose) {
-  int      nlines, maxlines = 10000, nkeep, nfields, arraysize=100;
-  bool     keep;
-  string   line[maxlines],chainlist[arraysize],field[arraysize];
+  int        nlines, nkeep, nfields;
+  const int  maxlines = 10000, arraysize=100;
+  bool       keep;
+  string     line[maxlines],chainlist[arraysize],field[arraysize];
 
   nkeep = Split(chains,',',chainlist,arraysize);
 
@@ -109,9 +111,10 @@ void CSubset::Init(const string residuesfile, string chains, bool verbose) {
 /* [number, ignored]  [chain ID]  [residue ID]  [4th+ column ignored] */
 /*--------------------------------------------------------------------*/
 void CSubset::Init(string* line, const int nlines, bool verbose) {
-  bool     newtype,skip;
-  int      i,j, chainno, nfields, arraysize = 100, nkeep = 0;
-  string   chaintypes[arraysize], field[arraysize];
+  bool        newtype,skip;
+  int         i,j, chainno, nfields, nkeep = 0;
+  const int   arraysize = 100;
+  string      chaintypes[arraysize], field[arraysize];
 
   /* count number of different chain types */
   nchaintypes = 0;
@@ -236,8 +239,9 @@ void CSubset::Init(string* line, const int nlines, bool verbose) {
 /*            unkflag -- if true, set eval to only known-unknown pairs */
 /*--------------------------------------------------------------------*/
 void CSubset::SetUnknown(const string identifiers, const bool unkflag) {
-  int      index,arraysize = 100;
-  string   field[arraysize];
+  int        index;
+  const int  arraysize = 100;
+  string     field[arraysize];
 
   if ((nunknown = Split(identifiers,',',field,arraysize)) <= 0) {
     cout << "WARNING: no chain identifiers for variable residue chains " <<

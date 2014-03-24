@@ -31,7 +31,8 @@ void parseflags(int, char**, long&, double&, double&, double&,
                 int&, int&, bool&, bool&, bool&, bool&, bool&);
 
 int main (int argc, char *argv[]) { 
-  int        n, nequil, ncool, ndecor, nruns, lastiter, maxseqs=100, nseqs;
+  int        n, nequil, ncool, ndecor, nruns, lastiter, nseqs;
+  const int  maxseqs=100;
   int        frameinterval, nabchains, maxlines, fftype, resetfreq;
   bool       dumpstats, dumpmovie, caonly, seqopt, usechi, unkref;
   double     rmsd, maxrmsd, potential, temperature, highT, moveT;
@@ -240,7 +241,8 @@ int main (int argc, char *argv[]) {
       CSubset centroidsubset(residuesfile,0);
       centroidsys.CopyCentroids(fullsys,centroidsubset);
     } else {
-      int     ncenters,MAXcenters=1000;
+      int        ncenters;
+      const int  MAXcenters=1000;
       string  centers[MAXcenters], lines[MAXcenters];
       ncenters = Split(centroids,',',centers,MAXcenters);
       for(int i=0; i<ncenters; i++) {  
