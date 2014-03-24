@@ -31,7 +31,8 @@ void parseflags(int, char**, long&, double&, double&, double&, int&,
                 bool&, bool&);
 
 int main (int argc, char *argv[]) { 
-  int        n, nequil, nbins, lastiter, maxseqs=100, nseqs;
+  int        n, nequil, nbins, lastiter, nseqs;
+  const int  maxseqs=100;
   int        frameinterval, nabchains, fftype, resetfreq;
   bool       dumpmovie, caonly, seqopt, usechi;
   double     rmsd, maxrmsd, potential, temperature, binsize;
@@ -42,6 +43,7 @@ int main (int argc, char *argv[]) {
   string     potentialsdir, pdbfile, core, residuesfile, altseq;
   string     abdefn, agdefn, centroids, referencefile;
   string     header[maxseqs], seq[maxseqs];
+  string     refresidue; 
   ofstream   output, statsfile, movie;
 
   /* read run parameters from command line */
@@ -114,10 +116,11 @@ int main (int argc, char *argv[]) {
 
   /* initialize the forcefield */
   ffname = "KB";
+  refresidue = "ALA";  // could also be "UNK"
   if (fftype == 2) {ffname = "SIMPLE";}
   if (caonly) {ffname += "_CA_ONLY";}
   cout << "Initializing forcefield of type '" << ffname << "' ... " << endl;
-  CForcefield forcefield(ffname,potentialsdir,1);
+  CForcefield forcefield(ffname,potentialsdir,refresidue,1);
   if (fftype == 2) {
     forcefield.SetUnknownInt(false);
   } else if (fftype == 1) {
@@ -172,7 +175,8 @@ int main (int argc, char *argv[]) {
       CSubset centroidsubset(residuesfile,0);
       centroidsys.CopyCentroids(fullsys,centroidsubset);
     } else {
-      int     ncenters,MAXcenters=1000;
+      int         ncenters;
+      const int   MAXcenters=1000;
       string  centers[MAXcenters], lines[MAXcenters];
       ncenters = Split(centroids,',',centers,MAXcenters);
       for(int i=0; i<ncenters; i++) {  
