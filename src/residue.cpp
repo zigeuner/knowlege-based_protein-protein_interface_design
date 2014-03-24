@@ -10,6 +10,7 @@
 #include <fstream>
 #include "include/config.h"
 #include "include/residue.h"
+#include <stdlib.h>
 
 using std::ifstream;
 using std::ofstream;

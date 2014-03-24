@@ -7,6 +7,7 @@
 #include <fstream>
 #include "include/config.h"
 #include "include/hardsphereint.h"
+#include <stdlib.h>
 
 using std::string;
 using std::ifstream;

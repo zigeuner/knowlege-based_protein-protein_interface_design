@@ -5,6 +5,7 @@
 #include <cmath>
 #include <string>
 #include <iostream>
+#include <stdlib.h>
 #include "config.h"
 #include "ffbase.h"
 #include "stringutils.h"

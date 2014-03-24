@@ -5,6 +5,7 @@
 */
 
 #include <iostream>
+#include <stdlib.h>
 #include "include/vector3.h"
 
 using std::ostream;

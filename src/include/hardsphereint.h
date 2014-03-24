@@ -6,6 +6,7 @@
 #include <string>
 #include "config.h"
 #include "ffbase.h"
+#include <stdlib.h>
 
 class CHardSphere : public CFFBase {
  private:
